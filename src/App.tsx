@@ -1,7 +1,7 @@
 import React from 'react';
 import "./styles/global.scss"
 
-import TodosScreen from './containers/TodosScreen';
+import TodosScreen from 'containers/TodosScreen';
 
 function App() {
   return <TodosScreen />;
