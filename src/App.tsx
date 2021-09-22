@@ -1,9 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
-import Todos from './Todos';
+import "./styles/global.scss"
+
+import TodosScreen from './containers/TodosScreen';
 
 function App() {
-  return <Todos />;
+  return <TodosScreen />;
 }
 
 export default App;
