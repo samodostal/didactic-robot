@@ -1,21 +1,23 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { addTodoItem, removeTodoItem, selectTodos } from "store";
+import TodoItem from "scripts/classes/TodoItem";
 
 const TodosScreen = (): ReactElement => {
+	const todos = useSelector(selectTodos);
+	const dispatch = useDispatch();
+
 	const [newTodo, setNewTodo] = useState("");
-	const [todos, setTodos] = useState<string[]>(["hello there", "general kenobi"]);
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
-		if (!newTodo) return;
-
-		const newTodos = [newTodo, ...todos];
-		setTodos(newTodos);
+		dispatch(addTodoItem(new TodoItem(newTodo)));
 		setNewTodo("");
 	};
 
-	const removeTodo = (removeIndex: number): void => {
-		const filteredTodos = todos.filter((_, index) => index !== removeIndex);
-		setTodos(filteredTodos);
+	const removeTodo = (removeId: string): void => {
+		dispatch(removeTodoItem(removeId));
 	};
 
 	return (
@@ -51,17 +53,17 @@ const TodosScreen = (): ReactElement => {
 			</form>
 			<div>
 				{todos.length === 0 && <div style={{ textAlign: "center" }}>Add some todos</div>}
-				{todos.map((todo, i) => (
+				{todos.map((todo) => (
 					<div
-						key={`${todo}-${i}`}
+						key={`${todo.title}`}
 						style={{
 							padding: 4,
 							borderBottom: "1px solid #ccc",
 							display: "flex",
 						}}
 					>
-						<span style={{ flex: 1 }}>{todo}</span>
-						<span style={{ cursor: "pointer" }} onClick={() => removeTodo(i)}>
+						<span style={{ flex: 1 }}>{todo.title}</span>
+						<span style={{ cursor: "pointer" }} onClick={() => removeTodo(todo.id)}>
 							&times;
 						</span>
 					</div>
