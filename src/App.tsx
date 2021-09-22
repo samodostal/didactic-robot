@@ -1,9 +1,9 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import "./styles/global.scss";
 
 import TodosScreen from "containers/TodosScreen";
 
-function App(): ReactElement {
+const App = (): ReactElement => {
 	return <TodosScreen />;
 }
 
