@@ -1,10 +1,10 @@
 import { ReactElement } from "react";
 import "./styles/global.scss";
 
-import TodosScreen from "containers/TodosScreen";
+import MainScreen from "containers/MainScreen";
 
 const App = (): ReactElement => {
-	return <TodosScreen />;
+	return <MainScreen />;
 };
 
 export default App;

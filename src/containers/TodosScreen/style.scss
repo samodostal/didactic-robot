@@ -1,0 +1,28 @@
+@import "~styles/variables.scss";
+
+.todos-screen {
+	padding-top: 1.2rem;
+
+	&__placeholder {
+		text-align: center;
+
+		font-size: 1.4rem;
+		color: $color-gray-2;
+	}
+
+	&__todo-item {
+		display: flex;
+		padding: .4rem;
+
+		border-bottom: 1px solid $color-gray-1;
+	}
+
+	&__todo-title {
+		flex: 1;
+	}
+
+	&__todo-remove {
+		cursor: pointer;
+	}
+}
+

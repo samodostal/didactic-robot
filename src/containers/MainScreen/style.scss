@@ -1,0 +1,19 @@
+.main-screen {
+	display: flex;
+	flex-direction: column;
+
+	width: 100%;
+	max-width: 50rem;
+
+	margin: 0 auto;
+	padding: 1.8rem 1.2rem;
+
+	&__header {
+		font-size: 2.2rem;
+		font-weight: 500;
+		line-height: 140%;
+
+		margin-bottom: 1rem;
+	}
+}
+
