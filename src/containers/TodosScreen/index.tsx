@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addTodoItem, removeTodoItem, selectTodos } from "store";
@@ -55,7 +55,7 @@ const TodosScreen = (): ReactElement => {
 				{todos.length === 0 && <div style={{ textAlign: "center" }}>Add some todos</div>}
 				{todos.map((todo) => (
 					<div
-						key={`${todo.title}`}
+						key={`${todo.id}`}
 						style={{
 							padding: 4,
 							borderBottom: "1px solid #ccc",

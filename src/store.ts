@@ -26,6 +26,7 @@ const store = configureStore({
 	reducer: {
 		todos: todosSlice.reducer,
 	},
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export const { addTodoItem, removeTodoItem } = todosSlice.actions;
