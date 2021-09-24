@@ -22,7 +22,7 @@ const initialState: TodosState = {
 	todos: {
 		todo: {
 			visibleName: "Todo",
-			items: [new TodoItem("Task 1"), new TodoItem("Task 2"), new TodoItem("Task 3")],
+			items: [new TodoItem("Task 1", "Low"), new TodoItem("Task 2", "Medium"), new TodoItem("Task 3", "Large")],
 		},
 		doing: {
 			visibleName: "Doing",

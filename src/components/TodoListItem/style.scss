@@ -32,6 +32,27 @@
     }
   }
 
+  &--priority {
+    &-Low {
+      & .todo-list-item__checkbox {
+        border-color: $color-blue;
+        border-bottom-width: .2rem;
+      }
+    }
+    &-Medium {
+      & .todo-list-item__checkbox {
+        border-color: $color-yellow;
+        border-bottom-width: .2rem;
+      }
+    }
+    &-Large {
+      & .todo-list-item__checkbox {
+        border-color: $color-red;
+        border-bottom-width: .2rem;
+      }
+    }
+  }
+
   &__group {
     display: flex;
     align-items: center;

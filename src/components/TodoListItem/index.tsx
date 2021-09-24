@@ -14,11 +14,15 @@ interface Props {
 }
 
 const TodoListItem = ({ todo, status, draggableProps: { provided, snapshot } }: Props): ReactElement => {
-	const classList = ["todo-list-item", `todo-list-item--type-${status.toLowerCase()}`];
+	const classList = [
+		"todo-list-item",
+		`todo-list-item--type-${status.toLowerCase()}`,
+		`todo-list-item--priority-${todo.priority}`,
+	].join(" ");
 
 	return (
 		<div
-			className={classList.join(" ")}
+			className={classList}
 			ref={provided.innerRef}
 			{...provided.draggableProps}
 			{...provided.dragHandleProps}
