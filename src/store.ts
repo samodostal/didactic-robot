@@ -18,19 +18,29 @@ export interface TodosState {
 	};
 }
 
+export const OneDayInMs = 24 * 60 * 60 * 1000;
+
+const DateToday = new Date();
+const DateTomorrow = new Date(DateToday.getTime() + OneDayInMs);
+const DateYesterday = new Date(DateToday.getTime() - OneDayInMs);
+const DateInWeek = new Date(DateToday.getTime() + 7 * OneDayInMs);
+
 const initialState: TodosState = {
 	todos: {
 		todo: {
 			visibleName: "Todo",
-			items: [new TodoItem("Task 1", "Low"), new TodoItem("Task 2", "Medium"), new TodoItem("Task 3", "Large")],
+			items: [
+				new TodoItem("Write email series", "Medium"),
+				new TodoItem("Wireframe landing page", "Large", DateTomorrow),
+			],
 		},
 		doing: {
 			visibleName: "Doing",
-			items: [new TodoItem("Task 4"), new TodoItem("Task 5")],
+			items: [new TodoItem("Write blog post", "No", DateInWeek), new TodoItem("Revamp online calculator", "No", DateYesterday)],
 		},
 		done: {
 			visibleName: "Done",
-			items: [new TodoItem("Task 6")],
+			items: [new TodoItem("Design email campaigns")],
 		},
 	},
 };

@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
 import TodoItem from "scripts/classes/TodoItem";
+import { formatDate } from "scripts/utils";
 
 import "./style.scss";
 
@@ -29,13 +30,20 @@ const TodoListItem = ({ todo, status, draggableProps: { provided, snapshot } }: 
 			style={{ ...provided.draggableProps.style }}
 			// onClick={() => removeTodo(item.id)}
 		>
-			<div className="todo-list-item__group">
-				<i className="todo-list-item__checkbox">
-					<i className="todo-list-item__icon-check" />
-				</i>
-				{todo.title}
+			<div className="todo-list-item__row">
+				<div className="todo-list-item__group">
+					<i className="todo-list-item__checkbox">
+						<i className="todo-list-item__icon-check" />
+					</i>
+					<span className="todo-list-item__title">{todo.title}</span>
+				</div>
+				<i className="todo-list-item__icon-tune" />
 			</div>
-			<i className="todo-list-item__icon-tune" />
+			{todo.dueDate && (
+				<div className="todo-list-item__row">
+					<p className="todo-list-item__due-date">{formatDate(todo.dueDate)}</p>
+				</div>
+			)}
 		</div>
 	);
 };

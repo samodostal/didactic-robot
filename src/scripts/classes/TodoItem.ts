@@ -1,16 +1,15 @@
 import { v4 as uuidv4 } from "uuid";
 
 export type Guid = string;
-export type Timestamp = number;
 export type Priority = "No" | "Low" | "Medium" | "Large";
 
 class TodoItem {
 	public id: Guid;
 	public title: string;
 	public priority: Priority;
-	public dueDate: Timestamp | null;
+	public dueDate: Date | null;
 
-	constructor(title: string, priority?: Priority, dueDate?: Timestamp) {
+	constructor(title: string, priority?: Priority, dueDate?: Date) {
 		this.id = uuidv4();
 		this.title = title;
 		this.priority = priority || "No";
