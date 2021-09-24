@@ -7,6 +7,7 @@ import "./style.scss";
 import { selectTodoCategories, TodosState } from "store";
 import TodoItem, { Guid } from "scripts/classes/TodoItem";
 import { onDragEnd } from "scripts/draggableUtils";
+import TodoListItem from "components/TodoListItem";
 
 interface Props {
 	removeTodo: (removeId: Guid) => void;
@@ -17,71 +18,45 @@ const TodosScreen = ({ removeTodo, updateAllTodos }: Props): ReactElement => {
 	const todoCategories = useSelector(selectTodoCategories);
 
 	return (
-		<div style={{ display: "flex", flexDirection: "row", justifyContent: "center", height: "100%" }}>
+		<div className="todos-screen">
 			<DragDropContext onDragEnd={(result) => onDragEnd(result, todoCategories, updateAllTodos)}>
-				{Object.entries(todoCategories).map(([categoryKey, category], index) => {
-					return (
-						<div
-							style={{
-								display: "flex",
-								flexDirection: "column",
-								alignItems: "center",
+				{Object.entries(todoCategories).map(([categoryKey, category]) => (
+					<div key={categoryKey} className="todos-screen__category">
+						<header className="todos-screen__category-header">
+							<h2>
+								{category.visibleName}
+								<span>{category.items.length}</span>
+							</h2>
+							<i className="todos-screen__icon-more" />
+						</header>
+						<Droppable droppableId={categoryKey} key={categoryKey}>
+							{(provided) => {
+								return (
+									<div
+										className="todos-screen__droppable-area"
+										{...provided.droppableProps}
+										ref={provided.innerRef}
+									>
+										{category.items.map((item: TodoItem, index: number) => {
+											return (
+												<Draggable key={item.id} draggableId={item.id} index={index}>
+													{(provided, snapshot) => (
+														<TodoListItem
+															todo={item}
+															status={category.visibleName}
+															draggableProps={{ provided, snapshot }}
+														/>
+													)}
+												</Draggable>
+											);
+										})}
+										{provided.placeholder}
+									</div>
+								);
 							}}
-							key={categoryKey}
-						>
-							<h2>{category.visibleName}</h2>
-							<div style={{ margin: 8 }}>
-								<Droppable droppableId={categoryKey} key={categoryKey}>
-									{(provided, snapshot) => {
-										return (
-											<div
-												{...provided.droppableProps}
-												ref={provided.innerRef}
-												style={{
-													background: snapshot.isDraggingOver ? "lightblue" : "lightgrey",
-													padding: 4,
-													width: 250,
-													minHeight: 500,
-												}}
-											>
-												{category.items.map((item: TodoItem, index: number) => {
-													return (
-														<Draggable key={item.id} draggableId={item.id} index={index}>
-															{(provided, snapshot) => {
-																return (
-																	<div
-																		ref={provided.innerRef}
-																		onClick={() => removeTodo(item.id)}
-																		{...provided.draggableProps}
-																		{...provided.dragHandleProps}
-																		style={{
-																			userSelect: "none",
-																			padding: 16,
-																			margin: "0 0 8px 0",
-																			minHeight: "50px",
-																			backgroundColor: snapshot.isDragging
-																				? "#263B4A"
-																				: "#456C86",
-																			color: "white",
-																			...provided.draggableProps.style,
-																		}}
-																	>
-																		{item.title + " - " + category.visibleName}
-																	</div>
-																);
-															}}
-														</Draggable>
-													);
-												})}
-												{provided.placeholder}
-											</div>
-										);
-									}}
-								</Droppable>
-							</div>
-						</div>
-					);
-				})}
+						</Droppable>
+					</div>
+				))}
 			</DragDropContext>
 		</div>
 	);
