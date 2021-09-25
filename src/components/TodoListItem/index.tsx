@@ -1,13 +1,16 @@
 import { ReactElement } from "react";
 import { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
 import TodoItem from "scripts/classes/TodoItem";
+import { onDragEnd } from "scripts/draggableUtils";
 import { formatDate } from "scripts/utils";
+import { changeTodoItemCategory, TodoCategory } from "store";
 
 import "./style.scss";
 
 interface Props {
 	todo: TodoItem;
-	status: "Todo" | "Doing" | "Done";
+	status: TodoCategory;
 	draggableProps: {
 		provided: DraggableProvided;
 		snapshot: DraggableStateSnapshot;
@@ -15,11 +18,19 @@ interface Props {
 }
 
 const TodoListItem = ({ todo, status, draggableProps: { provided, snapshot } }: Props): ReactElement => {
+	const dispatch = useDispatch();
+
 	const classList = [
 		"todo-list-item",
-		`todo-list-item--type-${status.toLowerCase()}`,
+		`todo-list-item--type-${status}`,
 		`todo-list-item--priority-${todo.priority}`,
 	].join(" ");
+
+	const onCheckboxClick = (): void => {
+		const sourceCategory = status;
+		const destinationCategory = status === "Done" ? "Todo" : "Done";
+		dispatch(changeTodoItemCategory({ todo, sourceCategory, destinationCategory }));
+	};
 
 	return (
 		<div
@@ -28,11 +39,10 @@ const TodoListItem = ({ todo, status, draggableProps: { provided, snapshot } }: 
 			{...provided.draggableProps}
 			{...provided.dragHandleProps}
 			style={{ ...provided.draggableProps.style }}
-			// onClick={() => removeTodo(item.id)}
 		>
 			<div className="todo-list-item__row">
 				<div className="todo-list-item__group">
-					<i className="todo-list-item__checkbox">
+					<i className="todo-list-item__checkbox" onClick={onCheckboxClick}>
 						<i className="todo-list-item__icon-check" />
 					</i>
 					<span className="todo-list-item__title">{todo.title}</span>

@@ -25,7 +25,7 @@ const MainScreen = (): ReactElement => {
 
 	return (
 		<div className="main-screen">
-			<h2 className="main-screen__header">Todo Website</h2>
+			<h2 className="main-screen__header">Todo's Website</h2>
 			<NewTodoInput createTodo={createTodo} />
 			<TodosScreen removeTodo={removeTodo} updateAllTodos={updateAllTodos} />
 		</div>

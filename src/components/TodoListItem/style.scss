@@ -26,11 +26,17 @@
   }
 
   &--type {
-    &-done {
+    &-Done {
       opacity: .4;
+      & .todo-list-item__checkbox {
+        border-color: $color-gray-2 !important;
+        border-bottom-width: .1rem !important;
+      }
+
       & .todo-list-item__icon-check {
         opacity: 1;
       }
+
       & .todo-list-item__due-date {
         color: $color-gray-2;
         & span {

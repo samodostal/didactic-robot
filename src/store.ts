@@ -1,6 +1,8 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import TodoItem from "scripts/classes/TodoItem";
 
+export type TodoCategory = "Todo" | "Doing" | "Done";
+
 export interface TodosState {
 	todos: {
 		todo: {
@@ -36,7 +38,10 @@ const initialState: TodosState = {
 		},
 		doing: {
 			visibleName: "Doing",
-			items: [new TodoItem("Write blog post", "No", DateInWeek), new TodoItem("Revamp online calculator", "No", DateYesterday)],
+			items: [
+				new TodoItem("Write blog post", "No", DateInWeek),
+				new TodoItem("Revamp online calculator", "No", DateYesterday),
+			],
 		},
 		done: {
 			visibleName: "Done",
@@ -57,6 +62,17 @@ export const todosSlice = createSlice({
 			state.todos.doing.items = state.todos.doing.items.filter(({ id }) => id !== action.payload);
 			state.todos.done.items = state.todos.done.items.filter(({ id }) => id !== action.payload);
 		},
+		changeTodoItemCategory: (
+			state,
+			action: PayloadAction<{ todo: TodoItem; sourceCategory: TodoCategory; destinationCategory: TodoCategory }>
+		) => {
+			const { todo, sourceCategory, destinationCategory } = action.payload;
+			const source = sourceCategory.toLowerCase() as keyof TodosState["todos"];
+			const destination = destinationCategory.toLowerCase() as keyof TodosState["todos"];
+
+			state.todos[source].items = state.todos[source].items.filter(({ id }) => id !== todo.id);
+			state.todos[destination].items = [todo, ...state.todos[destination].items];
+		},
 		updateAllTodoItems: (state, action: PayloadAction<TodosState["todos"]>) => {
 			state.todos = action.payload;
 		},
@@ -70,7 +86,7 @@ const store = configureStore({
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 
-export const { createTodoItem, removeTodoItem, updateAllTodoItems } = todosSlice.actions;
+export const { createTodoItem, removeTodoItem, changeTodoItemCategory, updateAllTodoItems } = todosSlice.actions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export const selectTodoCategories = (state: RootState): TodosState["todos"] => state.todos.todos;
