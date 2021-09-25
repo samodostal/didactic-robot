@@ -13,8 +13,10 @@ const NewTodoInput = ({ createTodo }: Props): ReactElement => {
 
 	const onFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
-		createTodo(newTodo);
-		resetNewTodo();
+		if (newTodo.title) {
+			createTodo(newTodo);
+			resetNewTodo();
+		}
 	};
 
 	const resetNewTodo = (): void => {

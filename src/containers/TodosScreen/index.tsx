@@ -18,12 +18,25 @@ interface Props {
 const TodosScreen = ({ removeTodo, updateAllTodos }: Props): ReactElement => {
 	const todoCategories = useSelector(selectTodoCategories);
 
+	const onHeaderClick = (categoryId: string): void => {
+		collapseCategory(categoryId);
+	};
+
+	const collapseCategory = (categoryId: string): void => {
+		const categoryEl = document.querySelector(`#${categoryId}`) as HTMLDivElement;
+		if (categoryEl.classList.contains("todos-screen__category--collapsed")) {
+			categoryEl.classList.remove("todos-screen__category--collapsed");
+		} else {
+			categoryEl.classList.add("todos-screen__category--collapsed");
+		}
+	};
+
 	return (
 		<div className="todos-screen">
 			<DragDropContext onDragEnd={(result) => onDragEnd(result, todoCategories, updateAllTodos)}>
 				{Object.entries(todoCategories).map(([categoryKey, category]) => (
-					<div key={categoryKey} className="todos-screen__category">
-						<header className="todos-screen__category-header">
+					<div key={categoryKey} className="todos-screen__category" id={categoryKey}>
+						<header className="todos-screen__category-header" onClick={() => onHeaderClick(categoryKey)}>
 							<h2>
 								{category.visibleName}
 								<span>{category.items.length}</span>

@@ -14,9 +14,10 @@ body {
 	font-size: 1.6rem;
 }
 
-#root,
-.App {
+#root {
 	height: 100%;
+	overflow-y: auto;
+	user-select: none;
 }
 
 * {

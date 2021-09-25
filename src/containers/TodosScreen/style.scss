@@ -1,15 +1,26 @@
 @import "~styles/variables.scss";
 
 .todos-screen {
-	padding: 0.6rem 0.4rem 0;
+	padding: 0.6rem 0.4rem 8rem;
 
 	&__category {
+		overflow: hidden;
+
+		transition: max-height 0.4s ease-in-out;
+		max-height: 100vh;
+
+		&--collapsed {
+			transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+			max-height: 3rem;
+			& .todos-screen__icon-more {
+				transform: rotate(-90deg);
+			}
+		}
 	}
 
 	&__category-header {
 		height: 3rem;
 		padding-left: 0.9rem;
-		/* margin-bottom: .8rem; */
 
 		display: flex;
 		align-items: center;
@@ -56,7 +67,7 @@
 		background-position: center;
 
 		opacity: 0.4;
-		transition: opacity 0.2s ease;
+		transition: opacity 0.2s ease, transform 0.2s ease;
 	}
 
 	&__droppable-area {

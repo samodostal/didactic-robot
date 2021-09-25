@@ -29,7 +29,7 @@ const formatDate = (date: Date): ReactElement => {
 
 const placeholderMessage = (category: TodoCategory): string => {
 	if (category === "Todo") {
-		return "Add your first todo!";
+		return "Nothing here!";
 	} else if (category === "Doing") {
 		return "Empty list!";
 	} else if (category === "Done") {
