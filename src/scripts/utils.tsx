@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { OneDayInMs } from "store";
+import { OneDayInMs, TodoCategory } from "store";
 
 const prettyDate = (date: Date): string => {
 	const day = date.toLocaleString("default", { day: "2-digit" });
@@ -27,4 +27,16 @@ const formatDate = (date: Date): ReactElement => {
 	}
 };
 
-export { formatDate };
+const placeholderMessage = (category: TodoCategory): string => {
+	if (category === "Todo") {
+		return "Add your first todo!";
+	} else if (category === "Doing") {
+		return "Empty list!";
+	} else if (category === "Done") {
+		return "Nothing!";
+	} else {
+		throw new Error("Not implemented");
+	}
+};
+
+export { formatDate, placeholderMessage };

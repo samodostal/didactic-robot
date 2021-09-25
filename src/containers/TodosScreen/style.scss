@@ -1,15 +1,14 @@
 @import "~styles/variables.scss";
 
 .todos-screen {
-	padding: .6rem .4rem 0;
+	padding: 0.6rem 0.4rem 0;
 
 	&__category {
-
 	}
 
 	&__category-header {
 		height: 3rem;
-		padding-left: .9rem;
+		padding-left: 0.9rem;
 		/* margin-bottom: .8rem; */
 
 		display: flex;
@@ -17,17 +16,17 @@
 		justify-content: space-between;
 
 		background-color: $color-white;
-		border-radius: .4rem;
+		border-radius: 0.4rem;
 
 		cursor: pointer;
 		user-select: none;
 
-		transition: background-color .2s ease;
+		transition: background-color 0.2s ease;
 
 		&:hover {
-      background-color: rgba($color-black, .04);
-			& i{
-				opacity: .6;
+			background-color: rgba($color-black, 0.04);
+			& i {
+				opacity: 0.6;
 			}
 		}
 
@@ -56,34 +55,22 @@
 		background-size: 80%;
 		background-position: center;
 
-		opacity: .4;
-		transition: opacity .2s ease;
+		opacity: 0.4;
+		transition: opacity 0.2s ease;
 	}
 
 	&__droppable-area {
-
+		min-height: 3rem;
+		/* background-color: tomato; */
 	}
 
-	&__placeholder {
-		text-align: center;
+	&__empty-placeholder {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 3rem;
 
 		font-size: 1.4rem;
 		color: $color-gray-2;
 	}
-
-	&__todo-item {
-		display: flex;
-		padding: .4rem;
-
-		border-bottom: 1px solid $color-gray-1;
-	}
-
-	&__todo-title {
-		flex: 1;
-	}
-
-	&__todo-remove {
-		cursor: pointer;
-	}
 }
-

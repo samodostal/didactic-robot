@@ -1,7 +1,11 @@
 import { DropResult } from "react-beautiful-dnd";
 import { TodosState } from "store";
 
-const onDragEnd = (result: DropResult, columns: TodosState["todos"], setColumns: (todosState: TodosState["todos"]) => void): void => {
+const onDragEnd = (
+	result: DropResult,
+	columns: TodosState["todos"],
+	setColumns: (todosState: TodosState["todos"]) => void
+): void => {
 	if (!result.destination) return;
 	const { source, destination } = result;
 

@@ -7,6 +7,7 @@ import "./style.scss";
 import { selectTodoCategories, TodosState } from "store";
 import TodoItem, { Guid } from "scripts/classes/TodoItem";
 import { onDragEnd } from "scripts/draggableUtils";
+import { placeholderMessage } from "scripts/utils";
 import TodoListItem from "components/TodoListItem";
 
 interface Props {
@@ -37,6 +38,11 @@ const TodosScreen = ({ removeTodo, updateAllTodos }: Props): ReactElement => {
 										{...provided.droppableProps}
 										ref={provided.innerRef}
 									>
+										{category.items.length === 0 && (
+											<p className="todos-screen__empty-placeholder">
+												{placeholderMessage(category.visibleName)}
+											</p>
+										)}
 										{category.items.map((item: TodoItem, index: number) => {
 											return (
 												<Draggable key={item.id} draggableId={item.id} index={index}>
