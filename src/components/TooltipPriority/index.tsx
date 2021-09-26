@@ -17,7 +17,7 @@ const TooltipPriority = ({ priority, isSelected, handleClick }: Props): ReactEle
 		`tooltip-priority--${isSelected ? "selected" : "not-selected"}`,
 	].join(" ");
 
-	return <i className={classList} title={`${priority} priority`} onClick={() => handleClick(priority)}/>;
+	return <i className={classList} title={`${priority} priority`} onClick={() => handleClick(priority)} />;
 };
 
 export default TooltipPriority;

@@ -47,7 +47,7 @@ const getTodoFromCategories = (todoCategories: TodosState["todos"], todoId: Guid
 		const category = todoCategories[keyTyped];
 
 		foundTodo = category.items.find(({ id }) => id === todoId) || null;
-		if(foundTodo) break;
+		if (foundTodo) break;
 	}
 	return foundTodo;
 };

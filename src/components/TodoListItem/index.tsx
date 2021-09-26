@@ -2,7 +2,6 @@ import { ReactElement, useEffect } from "react";
 import { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import TodoItem from "scripts/classes/TodoItem";
-import { onDragEnd } from "scripts/draggableUtils";
 import { formatDate } from "scripts/utils";
 import { changeTodoItemCategory, TodoCategory } from "store";
 

@@ -61,9 +61,10 @@ const TooltipContent = ({ todoId }: Props): ReactElement => {
 	};
 
 	const handleCalendarClick = (newDate: Date): void => {
+		const dueDate = JSON.stringify(newDate) !== JSON.stringify(internalData.dueDate) ? newDate : null;
 		setInternalData({
 			...internalData,
-			dueDate: newDate,
+			dueDate,
 		});
 	};
 
