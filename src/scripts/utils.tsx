@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
-import { OneDayInMs, TodoCategory } from "store";
+import { OneDayInMs, TodoCategory, TodosState } from "store";
+import TodoItem, { Guid } from "./classes/TodoItem";
 
 const prettyDate = (date: Date): string => {
 	const day = date.toLocaleString("default", { day: "2-digit" });
@@ -39,4 +40,15 @@ const placeholderMessage = (category: TodoCategory): string => {
 	}
 };
 
-export { formatDate, placeholderMessage };
+const getTodoFromCategories = (todoCategories: TodosState["todos"], todoId: Guid): TodoItem | null => {
+	let foundTodo: TodoItem | null = null;
+	for (const key in todoCategories) {
+		const keyTyped = key as keyof TodosState["todos"];
+		const category = todoCategories[keyTyped];
+
+		foundTodo = category.items.find(({ id }) => id === todoId) || null;
+		if(foundTodo) break;
+	}
+	return foundTodo;
+};
+export { formatDate, placeholderMessage, getTodoFromCategories };

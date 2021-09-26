@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import TodoItem from "scripts/classes/TodoItem";
@@ -47,7 +47,7 @@ const TodoListItem = ({ todo, status, draggableProps: { provided, snapshot } }: 
 					</i>
 					<span className="todo-list-item__title">{todo.title}</span>
 				</div>
-				<i className="todo-list-item__icon-tune" data-tip="Yooo" />
+				<i className="todo-list-item__icon-tune" data-tip={todo.id} />
 			</div>
 			{todo.dueDate && (
 				<div className="todo-list-item__row">

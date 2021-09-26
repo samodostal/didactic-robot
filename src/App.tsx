@@ -2,7 +2,6 @@ import { ReactElement } from "react";
 import ReactTooltip from "react-tooltip";
 import "./styles/global.scss";
 
-
 import MainScreen from "containers/MainScreen";
 import TooltipContent from "components/TooltipContent";
 

@@ -1,26 +1,57 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 import "./style.scss";
 
+import { getTodoFromCategories } from "scripts/utils";
 import { Guid, Priority } from "scripts/classes/TodoItem";
 import TooltipPriority from "components/TooltipPriority";
+import { selectTodoCategories, TodosState, updateTodoItem } from "store";
 
 interface Props {
-	todoId: Guid;
+	todoId: Guid | "New Todo";
 }
 
-interface InternalData {
+export interface InternalData {
 	priority: Priority;
-	dueDate: Date;
+	dueDate: Date | null;
 }
+
+const defaultInternalData: InternalData = {
+	priority: "No",
+	dueDate: null,
+};
 
 const TooltipContent = ({ todoId }: Props): ReactElement => {
-	const [internalData, setInternalData] = useState<InternalData>({
-		priority: "No",
-		dueDate: new Date(),
-	});
+	const todoCategories = useSelector(selectTodoCategories);
+	const [internalData, setInternalData] = useState<InternalData>(defaultInternalData);
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		console.log("here again");
+		updateTodoItemByInternalData();
+	}, [internalData]);
+
+	useEffect(() => {
+		const foundTodo = getTodoFromCategories(todoCategories, todoId);
+		if (foundTodo) {
+			setInternalData({
+				priority: foundTodo.priority,
+				dueDate: foundTodo.dueDate,
+			});
+		}
+	}, [todoId]);
+
+	const updateTodoItemByInternalData = (): void => {
+		if (todoId === "New Todo") {
+			//
+		} else {
+			dispatch(updateTodoItem({ todoId, internalData }));
+		}
+	};
 
 	const handleTooltipPriorityClick = (newPriority: Priority): void => {
 		setInternalData({

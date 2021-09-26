@@ -1,5 +1,6 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import TodoItem from "scripts/classes/TodoItem";
+import { InternalData } from "components/TooltipContent";
+import TodoItem, { Guid } from "scripts/classes/TodoItem";
 
 export type TodoCategory = "Todo" | "Doing" | "Done";
 
@@ -62,6 +63,35 @@ export const todosSlice = createSlice({
 			state.todos.doing.items = state.todos.doing.items.filter(({ id }) => id !== action.payload);
 			state.todos.done.items = state.todos.done.items.filter(({ id }) => id !== action.payload);
 		},
+		updateTodoItem: (state, action: PayloadAction<{ todoId: Guid; internalData: InternalData }>) => {
+			const {
+				payload: { todoId, internalData },
+			} = action;
+
+			let todoCategoryKey: keyof TodosState["todos"] | null = null;
+			let todoIndex: number | null = null;
+
+			for (const key in state.todos) {
+				const keyTyped = key as keyof TodosState["todos"];
+				const category = state.todos[keyTyped];
+
+				const foundTodo = category.items.find(({ id }) => id === todoId);
+				if (foundTodo) {
+					todoCategoryKey = keyTyped;
+					todoIndex = category.items.indexOf(foundTodo);
+					break;
+				}
+			}
+
+			if (todoCategoryKey !== null && todoIndex !== null) {
+				const todoItem = state.todos[todoCategoryKey].items[todoIndex];
+				state.todos[todoCategoryKey].items[todoIndex] = {
+					...todoItem,
+					priority: internalData.priority,
+					dueDate: internalData.dueDate,
+				};
+			}
+		},
 		changeTodoItemCategory: (
 			state,
 			action: PayloadAction<{ todo: TodoItem; sourceCategory: TodoCategory; destinationCategory: TodoCategory }>
@@ -86,7 +116,8 @@ const store = configureStore({
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 
-export const { createTodoItem, removeTodoItem, changeTodoItemCategory, updateAllTodoItems } = todosSlice.actions;
+export const { createTodoItem, removeTodoItem, updateTodoItem, changeTodoItemCategory, updateAllTodoItems } =
+	todosSlice.actions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export const selectTodoCategories = (state: RootState): TodosState["todos"] => state.todos.todos;
