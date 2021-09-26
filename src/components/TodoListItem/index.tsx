@@ -47,7 +47,7 @@ const TodoListItem = ({ todo, status, draggableProps: { provided, snapshot } }: 
 					</i>
 					<span className="todo-list-item__title">{todo.title}</span>
 				</div>
-				<i className="todo-list-item__icon-tune" />
+				<i className="todo-list-item__icon-tune" data-tip="Yooo" />
 			</div>
 			{todo.dueDate && (
 				<div className="todo-list-item__row">

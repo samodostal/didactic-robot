@@ -33,7 +33,7 @@ const NewTodoInput = ({ createTodo }: Props): ReactElement => {
 				onChange={({ currentTarget: { value } }) => setNewTodo({ ...newTodo, title: value })}
 				placeholder="Add a task..."
 			/>
-			<button type="button" className="new-todo__icon new-todo__icon-tune" />
+			<button data-tip="Hello world!" type="button" className="new-todo__icon new-todo__icon-tune" />
 			<button type="submit" className="new-todo__icon new-todo__icon-send" />
 		</form>
 	);

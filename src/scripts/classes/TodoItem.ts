@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 export type Guid = string;
-export type Priority = "No" | "Low" | "Medium" | "Large";
+export type Priority = "No" | "Low" | "Medium" | "High";
 
 class TodoItem {
 	public id: Guid;

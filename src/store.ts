@@ -33,7 +33,7 @@ const initialState: TodosState = {
 			visibleName: "Todo",
 			items: [
 				new TodoItem("Write email series", "Medium"),
-				new TodoItem("Wireframe landing page", "Large", DateTomorrow),
+				new TodoItem("Wireframe landing page", "High", DateTomorrow),
 			],
 		},
 		doing: {
