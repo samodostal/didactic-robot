@@ -19,6 +19,9 @@
 		& .todo-list-item__icon-tune {
 			opacity: 0.4;
 		}
+		& .todo-list-item__icon-remove {
+			opacity: 0.4;
+		}
 	}
 
 	&:last-child {
@@ -130,7 +133,26 @@
 		height: 2.4rem;
 		min-width: 2rem;
 
+		margin-right: .4rem;
+
 		background-image: url(~assets/icons/tune.svg);
+		background-size: 90%;
+		background-position: center;
+		background-repeat: no-repeat;
+
+		opacity: 0;
+		cursor: pointer;
+
+		transition: opacity 0.1s ease;
+	}
+
+	&__icon-remove {
+		display: inline-block;
+		width: 2rem;
+		height: 2.4rem;
+		min-width: 2rem;
+
+		background-image: url(~assets/icons/remove.svg);
 		background-size: 90%;
 		background-position: center;
 		background-repeat: no-repeat;

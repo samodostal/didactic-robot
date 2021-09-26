@@ -1,9 +1,9 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import TodoItem from "scripts/classes/TodoItem";
 import { formatDate } from "scripts/utils";
-import { changeTodoItemCategory, TodoCategory } from "store";
+import { changeTodoItemCategory, removeTodoItem, TodoCategory } from "store";
 
 import "./style.scss";
 
@@ -16,7 +16,7 @@ interface Props {
 	};
 }
 
-const TodoListItem = ({ todo, status, draggableProps: { provided, snapshot } }: Props): ReactElement => {
+const TodoListItem = ({ todo, status, draggableProps: { provided } }: Props): ReactElement => {
 	const dispatch = useDispatch();
 
 	const classList = [
@@ -30,6 +30,10 @@ const TodoListItem = ({ todo, status, draggableProps: { provided, snapshot } }: 
 		const destinationCategory = status === "Done" ? "Todo" : "Done";
 		dispatch(changeTodoItemCategory({ todo, sourceCategory, destinationCategory }));
 	};
+
+	const onRemoveClick = (): void => {
+		dispatch(removeTodoItem(todo.id));
+	}
 
 	return (
 		<div
@@ -47,6 +51,7 @@ const TodoListItem = ({ todo, status, draggableProps: { provided, snapshot } }: 
 					<span className="todo-list-item__title">{todo.title}</span>
 				</div>
 				<i className="todo-list-item__icon-tune" data-tip={todo.id} />
+				<i className="todo-list-item__icon-remove" onClick={onRemoveClick} />
 			</div>
 			{todo.dueDate && (
 				<div className="todo-list-item__row">
