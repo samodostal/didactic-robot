@@ -6,9 +6,9 @@ import "react-calendar/dist/Calendar.css";
 import "./style.scss";
 
 import { getTodoFromCategories } from "scripts/utils";
-import { Guid, Priority } from "scripts/classes/TodoItem";
+import TodoItem, { Guid, Priority } from "scripts/classes/TodoItem";
 import TooltipPriority from "components/TooltipPriority";
-import { selectTodoCategories, TodosState, updateTodoItem } from "store";
+import { selectNewTodo, selectTodoCategories, updateNewTodoItem, updateTodoItem } from "store";
 
 interface Props {
 	todoId: Guid | "New Todo";
@@ -26,28 +26,38 @@ const defaultInternalData: InternalData = {
 
 const TooltipContent = ({ todoId }: Props): ReactElement => {
 	const todoCategories = useSelector(selectTodoCategories);
-	const [internalData, setInternalData] = useState<InternalData>(defaultInternalData);
-
+	const newTodo = useSelector(selectNewTodo);
 	const dispatch = useDispatch();
 
+	const [internalData, setInternalData] = useState<InternalData>(defaultInternalData);
+
 	useEffect(() => {
-		console.log("here again");
-		updateTodoItemByInternalData();
+		feedDataFromInternalToStore();
 	}, [internalData]);
 
 	useEffect(() => {
-		const foundTodo = getTodoFromCategories(todoCategories, todoId);
-		if (foundTodo) {
-			setInternalData({
-				priority: foundTodo.priority,
-				dueDate: foundTodo.dueDate,
-			});
-		}
+		feedDataFromStoreToInternal();
 	}, [todoId]);
 
-	const updateTodoItemByInternalData = (): void => {
+	const feedDataFromStoreToInternal = (): void => {
 		if (todoId === "New Todo") {
-			//
+			if (internalData.priority !== newTodo.priority && internalData.dueDate !== newTodo.dueDate) {
+				setInternalData(defaultInternalData);
+			}
+		} else {
+			const foundTodo = getTodoFromCategories(todoCategories, todoId);
+			if (foundTodo) {
+				setInternalData({
+					priority: foundTodo.priority,
+					dueDate: foundTodo.dueDate,
+				});
+			}
+		}
+	};
+
+	const feedDataFromInternalToStore = (): void => {
+		if (todoId === "New Todo") {
+			dispatch(updateNewTodoItem(new TodoItem(newTodo.title, internalData.priority, internalData.dueDate)));
 		} else {
 			dispatch(updateTodoItem({ todoId, internalData }));
 		}

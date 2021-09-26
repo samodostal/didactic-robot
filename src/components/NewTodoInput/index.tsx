@@ -1,7 +1,9 @@
-import { FormEvent, ReactElement, useState } from "react";
+import { FormEvent, ReactElement } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./style.scss";
 
+import { selectNewTodo, updateNewTodoItem } from "store";
 import TodoItem from "scripts/classes/TodoItem";
 
 interface Props {
@@ -9,7 +11,8 @@ interface Props {
 }
 
 const NewTodoInput = ({ createTodo }: Props): ReactElement => {
-	const [newTodo, setNewTodo] = useState<TodoItem>(new TodoItem(""));
+	const newTodo = useSelector(selectNewTodo);
+	const dispatch = useDispatch();
 
 	const onFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
@@ -17,6 +20,10 @@ const NewTodoInput = ({ createTodo }: Props): ReactElement => {
 			createTodo(newTodo);
 			resetNewTodo();
 		}
+	};
+
+	const setNewTodo = (newTodo: TodoItem): void => {
+		dispatch(updateNewTodoItem(newTodo));
 	};
 
 	const resetNewTodo = (): void => {

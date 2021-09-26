@@ -5,7 +5,7 @@ import ReactTooltip from "react-tooltip";
 import { selectTodoCategories } from "store";
 import TooltipContent from "components/TooltipContent";
 
-const GlobalTooltip = (): ReactElement => {
+const EditTodoModal = (): ReactElement => {
 	const todoCategories = useSelector(selectTodoCategories);
 
 	useEffect(() => {
@@ -27,4 +27,4 @@ const GlobalTooltip = (): ReactElement => {
 	);
 };
 
-export default GlobalTooltip;
+export default EditTodoModal;

@@ -9,7 +9,7 @@ class TodoItem {
 	public priority: Priority;
 	public dueDate: Date | null;
 
-	constructor(title: string, priority?: Priority, dueDate?: Date) {
+	constructor(title: string, priority?: Priority, dueDate?: Date | null) {
 		this.id = uuidv4();
 		this.title = title;
 		this.priority = priority || "No";

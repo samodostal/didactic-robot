@@ -19,6 +19,7 @@ export interface TodosState {
 			items: TodoItem[];
 		};
 	};
+	newTodo: TodoItem;
 }
 
 export const OneDayInMs = 24 * 60 * 60 * 1000;
@@ -49,6 +50,7 @@ const initialState: TodosState = {
 			items: [new TodoItem("Design email campaigns")],
 		},
 	},
+	newTodo: new TodoItem(""),
 };
 
 export const todosSlice = createSlice({
@@ -106,6 +108,9 @@ export const todosSlice = createSlice({
 		updateAllTodoItems: (state, action: PayloadAction<TodosState["todos"]>) => {
 			state.todos = action.payload;
 		},
+		updateNewTodoItem: (state, action: PayloadAction<TodoItem>) => {
+			state.newTodo = action.payload;
+		},
 	},
 });
 
@@ -116,10 +121,17 @@ const store = configureStore({
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 
-export const { createTodoItem, removeTodoItem, updateTodoItem, changeTodoItemCategory, updateAllTodoItems } =
-	todosSlice.actions;
+export const {
+	createTodoItem,
+	removeTodoItem,
+	updateTodoItem,
+	changeTodoItemCategory,
+	updateAllTodoItems,
+	updateNewTodoItem,
+} = todosSlice.actions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export const selectTodoCategories = (state: RootState): TodosState["todos"] => state.todos.todos;
+export const selectNewTodo = (state: RootState): TodosState["newTodo"] => state.todos.newTodo;
 
 export default store;
