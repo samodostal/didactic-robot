@@ -22,6 +22,7 @@ const EditTodoModal = (): ReactElement => {
 			backgroundColor="white"
 			border={true}
 			borderColor="#eaeaea"
+			delayShow={100}
 			getContent={(props) => <TooltipContent todoId={props} />}
 		/>
 	);

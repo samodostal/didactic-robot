@@ -33,7 +33,7 @@ const TodoListItem = ({ todo, status, draggableProps: { provided } }: Props): Re
 
 	const onRemoveClick = (): void => {
 		dispatch(removeTodoItem(todo.id));
-	}
+	};
 
 	return (
 		<div

@@ -17,7 +17,19 @@ const TooltipPriority = ({ priority, isSelected, handleClick }: Props): ReactEle
 		`tooltip-priority--${isSelected ? "selected" : "not-selected"}`,
 	].join(" ");
 
-	return <i className={classList} title={`${priority} priority`} onClick={() => handleClick(priority)} />;
+	const includeExclamations = (): string => {
+		if (priority === "No") return "";
+		else if (priority === "Low") return "!";
+		else if (priority === "Medium") return "!!";
+		else if (priority === "High") return "!!!";
+		else throw new Error("Not implemented");
+	};
+
+	return (
+		<i className={classList} title={`${priority} priority`} onClick={() => handleClick(priority)}>
+			{includeExclamations()}
+		</i>
+	);
 };
 
 export default TooltipPriority;
