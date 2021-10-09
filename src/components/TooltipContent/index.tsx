@@ -24,8 +24,6 @@ const defaultInternalData: InternalData = {
 	dueDate: null,
 };
 
-//TODO: No priority should have crossed out exclamation mark
-//TODO: Update calendar style to be prettier
 const TooltipContent = ({ todoId }: Props): ReactElement => {
 	const todoCategories = useSelector(selectTodoCategories);
 	const newTodo = useSelector(selectNewTodo);
