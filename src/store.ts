@@ -4,6 +4,7 @@ import TodoItem, { Guid } from "scripts/classes/TodoItem";
 
 export type TodoCategory = "Todo" | "Doing" | "Done";
 
+//TODO: Change data structure to array of all todos + map for Drag and Drop
 export interface TodosState {
 	todos: {
 		todo: {
@@ -114,6 +115,7 @@ export const todosSlice = createSlice({
 	},
 });
 
+//TODO: Bind data to localStorage
 const store = configureStore({
 	reducer: {
 		todos: todosSlice.reducer,
