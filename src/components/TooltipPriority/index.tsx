@@ -18,7 +18,7 @@ const TooltipPriority = ({ priority, isSelected, handleClick }: Props): ReactEle
 	].join(" ");
 
 	const includeExclamations = (): string => {
-		if (priority === "No") return "";
+		if (priority === "No") return "!̷";
 		else if (priority === "Low") return "!";
 		else if (priority === "Medium") return "!!";
 		else if (priority === "High") return "!!!";
